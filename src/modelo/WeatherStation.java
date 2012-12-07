@@ -1,4 +1,4 @@
-package weather;
+package modelo;
 
 import java.net.URL;
 import java.util.HashMap;

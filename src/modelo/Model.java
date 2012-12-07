@@ -1,12 +1,18 @@
 
-package weather;
+package modelo;
 
+import java.util.Observable;
 import javax.swing.ImageIcon;
 
 
-public class Model extends java.util.Observable
+public class Model extends Observable
 {
-    private WeatherStation wS = new WeatherStation();
+    private WeatherStation wS;
+    
+    public Model()
+    {
+        wS = new WeatherStation();
+    }
     
     public int getHumidity(){
         return wS.getHumidity();
@@ -30,10 +36,13 @@ public class Model extends java.util.Observable
     
     public void setOnline(boolean onLine){
         wS.setOnline(onLine);
+        update();
     }
     
-    public void update(){
+    public void update()
+    {
         wS.update();
+        wS.setOnline(true);
         setChanged();
         notifyObservers();
     }
