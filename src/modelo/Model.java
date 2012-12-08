@@ -41,8 +41,9 @@ public class Model extends Observable
     
     public void update()
     {
+        wS.setOnline(false);
         wS.update();
-        wS.setOnline(true);
+        //System.out.println(this.getHumidity()+" <-- Humedad    "+this.getTemperature()+" °C");
         setChanged();
         notifyObservers();
     }

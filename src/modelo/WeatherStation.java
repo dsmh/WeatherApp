@@ -40,7 +40,7 @@ public class WeatherStation
 	private boolean online;
 
 	// Valores por defecto para pasar FMSG
-	private String proxyHost = "proxy2.utp.edu.co";
+	private String proxyHost = "proxy19.utp.edu.co";
 	private int proxyPort = 8080;
 
 	/**
