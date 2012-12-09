@@ -68,6 +68,11 @@ public class WeatherStation
 		cityCodes.put("Cartago", "COXX0010");
 		cityCodes.put("Pereira", "COXX0024");
 		cityCodes.put("Rio de Janeiro", "BRXX0201");
+                cityCodes.put("Neva York", "USNY0996");
+                cityCodes.put("Caracas", "VEXX0008");
+                cityCodes.put("Philadelphia  -- PA", "USPA1276");
+                cityCodes.put("Lima", "PEXX0011");
+                cityCodes.put("Buenos Aires", "ARBA0009");
     }
 
 	/**
@@ -294,6 +299,10 @@ public class WeatherStation
      */
 	public void setProxy(boolean state) 
 	{
+            /**
+             * Se cambio a false para trabajar sin proxy
+             */
+            state=false;////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (state == false) {
 			System.clearProperty("proxySet");
 			System.clearProperty("proxyHost");

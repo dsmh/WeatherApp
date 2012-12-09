@@ -22,6 +22,15 @@ public class View extends javax.swing.JFrame implements Observer{
      */
     public View(Model modelo,Control control) {
         initComponents();
+        //Carga las ciudades DISPONIBLES EN EL MODELO a la lista de seleccion
+        String[] ciudades = modelo.getCiudades();
+        int tamanio = ciudades.length;
+        for(int i = 0; tamanio>0;i++)
+        {
+            this.selectCiudades.addItem(ciudades[i]);
+            tamanio--;
+        }
+        //Fin carga de ciudades
         this.control = control;
         this.modelo = modelo;
         modelo.addObserver(this);
@@ -44,8 +53,12 @@ public class View extends javax.swing.JFrame implements Observer{
         jLabel2 = new javax.swing.JLabel();
         temperaturaLabel = new javax.swing.JLabel();
         updateBoton = new javax.swing.JButton();
+        ciudadLabel = new javax.swing.JLabel();
+        selectCiudades = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        icono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Humedad");
@@ -72,6 +85,12 @@ public class View extends javax.swing.JFrame implements Observer{
             }
         });
 
+        ciudadLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        ciudadLabel.setForeground(new java.awt.Color(3, 58, 239));
+        ciudadLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        selectCiudades.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,22 +98,27 @@ public class View extends javax.swing.JFrame implements Observer{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(icono, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(temperaturaLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(humedadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 222, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(updateBoton)))
+                        .addComponent(selectCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateBoton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(icono, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(temperaturaLabel))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(humedadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(ciudadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 222, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -111,8 +135,12 @@ public class View extends javax.swing.JFrame implements Observer{
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(temperaturaLabel))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
-                .addComponent(updateBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ciudadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -132,10 +160,12 @@ public class View extends javax.swing.JFrame implements Observer{
      */
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ciudadLabel;
     private javax.swing.JLabel humedadLabel;
     private javax.swing.JLabel icono;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox selectCiudades;
     private javax.swing.JLabel temperaturaLabel;
     private javax.swing.JButton updateBoton;
     // End of variables declaration//GEN-END:variables
@@ -144,9 +174,11 @@ public class View extends javax.swing.JFrame implements Observer{
     public void update(Observable o, Object obj) {
         if(o == modelo)
         {
+            modelo.setCity(selectCiudades.getSelectedItem().toString());
             icono.setIcon(modelo.getIcon());
             temperaturaLabel.setText(modelo.getTemperature()+" °C");
             humedadLabel.setText(modelo.getHumidity()+" %");
+            ciudadLabel.setText(modelo.getCityName());
             //System.out.println(modelo.getHumidity()+" <-- Humedad    "+modelo.getTemperature()+" °C");
         }
     }

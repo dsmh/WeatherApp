@@ -28,6 +28,10 @@ public class Control implements ActionListener
         {
             model.update();
         }
+        if(comando.equals("cambiar ciudad"))
+        {
+            model.update();
+        }
     }
     
     public static void main( String args[] ) {

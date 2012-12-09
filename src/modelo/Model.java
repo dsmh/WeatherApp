@@ -1,8 +1,10 @@
 
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import javax.swing.ImageIcon;
+import java.util.Collections;
 
 
 public class Model extends Observable
@@ -36,12 +38,39 @@ public class Model extends Observable
     
     public void setOnline(boolean onLine){
         wS.setOnline(onLine);
-        update();
     }
     
+    public String getCityName()
+    {
+        return wS.getCityName();
+    }
+    
+    public String[] getCiudades()
+    {
+        String[] ciudades = wS.getCityNames();
+        ArrayList<String> lista = new ArrayList<String>();
+        for (int i = 0; i < ciudades.length; i++) {
+            lista.add(ciudades[i]);
+        }
+        Collections.sort(lista);
+        
+        
+        String[] ciudadesOrden = new String[ciudades.length];
+        String[] toArray = lista.toArray(ciudadesOrden);
+            
+     
+        return ciudadesOrden;
+        
+    }
+    
+    public void setCity(String city)
+    {
+        wS.setCityName(city);
+        wS.update();
+    }
     public void update()
     {
-        wS.setOnline(false);
+        wS.setOnline(true);
         wS.update();
         //System.out.println(this.getHumidity()+" <-- Humedad    "+this.getTemperature()+" °C");
         setChanged();
