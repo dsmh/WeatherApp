@@ -20,7 +20,7 @@ import org.w3c.dom.Document;
  * Representa una estación metereológica virtual.
  * La información es recuperada desde Yahoo Weather.
  * 
- * @author Angel Augusto Agudelo Z
+ * @author Angel Augusto Agudelo Z && Steven Mejia
  * @version Nov.2012 
  */
 public class WeatherStation 
@@ -38,6 +38,11 @@ public class WeatherStation
 	private String imgURL;
 	private ImageIcon icon;
 	private boolean online;
+        private String[] forecast1;//Steven Mejia: Contiene la prediccion del clima
+        private String[] forecast2;//Steven Mejia: Contiene la prediccion del clima
+        private String airSpeed;//Steven Mejia: Contiene la velocidad del viento en Km/h
+        private String visibilidad; //Steven Mejia, esta dada en Km
+        private String presionAtmosferica;//medida en mb.
 
 	// Valores por defecto para pasar FMSG
 	private String proxyHost = "proxy19.utp.edu.co";
@@ -177,6 +182,54 @@ public class WeatherStation
 	public ImageIcon getIcon() {
 		return icon;
 	}
+        
+        /**
+         * Obtiene la preduccion del clima
+         * @return 
+         */
+        public String[] getForcast()
+        {
+            /*String[] retorna = new String[10];
+            retorna[0]=forecast1[0];
+            retorna[1]=forecast1[1];
+            retorna[2]=forecast1[2];
+            retorna[3]=forecast1[3];
+            retorna[4]=forecast1[4];
+            retorna[5]=forecast2[0];
+            retorna[6]=forecast2[1];
+            retorna[7]=forecast2[2];
+            retorna[8]=forecast2[3];
+            retorna[9]=forecast2[4];*/
+            return forecast1;
+        }
+        
+        
+        /**
+         * Retorna la velocidad del viento
+         * @return 
+         */
+        public String getAirSpeed()
+        {
+            return airSpeed;
+        }
+        
+        /**
+         * Retorna la visibilidad en Km
+         * @return 
+         */
+        public String getVisibilidad()
+        {
+            return visibilidad;
+        }
+        
+        /**
+         * retorna la presion atmosferica en mb
+         * @return 
+         */
+        public String getpressure()
+        {
+            return presionAtmosferica;
+        }
 
 	/**
 	 * Fija online para datos reales.  Fijar offline para propósitos de prueba
@@ -233,6 +286,27 @@ public class WeatherStation
 			humidity = Integer.valueOf(xpath.evaluate("/rss/channel/atmosphere/@humidity", xmlData));
 			sunrise  = xpath.evaluate("/rss/channel/astronomy/@sunrise", xmlData);
 			sunset   = xpath.evaluate("/rss/channel/astronomy/@sunset", xmlData);
+                        //se llenan las cadenas de prediccion climatica
+                        forecast1 = new String[5];
+                        forecast2 = new String[5];
+                        /**
+                         * TODO: esto no esta retornando nada CUIDADO CON ESTA PARTE
+                         
+                        forecast1[0]=xpath.evaluate("/rss/channel/forecast/@day", xmlData);
+                        forecast1[1]=xpath.evaluate("/rss/channel/forecast/@date", xmlData);
+                        forecast1[2]=xpath.evaluate("/rss/channel/forecast/@low", xmlData);
+                        forecast1[3]=xpath.evaluate("/rss/channel/forecast/@high", xmlData);
+                        forecast1[4]=xpath.evaluate("/rss/channel/forecast/@text", xmlData);
+                        
+                        forecast2[0]=xpath.evaluate("/rss/channel/forecast/@day", xmlData);
+                        forecast2[1]=xpath.evaluate("/rss/channel/forecast/@date", xmlData);
+                        forecast2[2]=xpath.evaluate("/rss/channel/forecast/@low", xmlData);
+                        forecast2[3]=xpath.evaluate("/rss/channel/forecast/@high", xmlData);
+                        forecast2[4]=xpath.evaluate("/rss/channel/forecast/@text", xmlData);*/
+                        airSpeed=xpath.evaluate("/rss/channel/wind/@speed", xmlData);
+                        visibilidad=xpath.evaluate("/rss/channel/atmosphere/@visibility", xmlData);
+                        presionAtmosferica=xpath.evaluate("/rss/channel/atmosphere/@pressure", xmlData);
+                        
 
 			if (!searchByName) {
 				cityName = yahooCityName;

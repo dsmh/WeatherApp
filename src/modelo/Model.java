@@ -45,6 +45,35 @@ public class Model extends Observable
         return wS.getCityName();
     }
     
+    public String[] getForecast()
+    {
+        return wS.getForcast();
+    }
+    /**
+     * Presion en mb
+     * @return 
+     */
+    public String getPressure()
+    {
+        return wS.getpressure();
+    }
+    
+    /*
+     * Visibilidad en Km
+     */
+    public String getVisibilidad()
+    {
+        return wS.getVisibilidad();
+    }
+    
+    /**
+     * Velocidad en Km/h
+     * @return 
+     */
+    public String getVelocidad()
+    {
+        return wS.getAirSpeed();
+    }
     public String[] getCiudades()
     {
         String[] ciudades = wS.getCityNames();
