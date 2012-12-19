@@ -45,7 +45,7 @@ public class Model extends Observable
         return wS.getCityName();
     }
     
-    public String[] getForecast()
+    public String getForecast()
     {
         return wS.getForcast();
     }

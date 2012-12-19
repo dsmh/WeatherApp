@@ -38,8 +38,7 @@ public class WeatherStation
 	private String imgURL;
 	private ImageIcon icon;
 	private boolean online;
-        private String[] forecast1;//Steven Mejia: Contiene la prediccion del clima
-        private String[] forecast2;//Steven Mejia: Contiene la prediccion del clima
+        private String forecast;//Steven Mejia: Contendra la informacion de la prediccion climatica
         private String airSpeed;//Steven Mejia: Contiene la velocidad del viento en Km/h
         private String visibilidad; //Steven Mejia, esta dada en Km
         private String presionAtmosferica;//medida en mb.
@@ -75,9 +74,10 @@ public class WeatherStation
 		cityCodes.put("Rio de Janeiro", "BRXX0201");
                 cityCodes.put("Neva York", "USNY0996");
                 cityCodes.put("Caracas", "VEXX0008");
-                cityCodes.put("Philadelphia  -- PA", "USPA1276");
+                cityCodes.put("Philadelphia (PA)", "USPA1276");
                 cityCodes.put("Lima", "PEXX0011");
                 cityCodes.put("Buenos Aires", "ARBA0009");
+                cityCodes.put("West New York", "USNJ0552");
     }
 
 	/**
@@ -187,20 +187,11 @@ public class WeatherStation
          * Obtiene la preduccion del clima
          * @return 
          */
-        public String[] getForcast()
+        public String getForcast()
         {
-            /*String[] retorna = new String[10];
-            retorna[0]=forecast1[0];
-            retorna[1]=forecast1[1];
-            retorna[2]=forecast1[2];
-            retorna[3]=forecast1[3];
-            retorna[4]=forecast1[4];
-            retorna[5]=forecast2[0];
-            retorna[6]=forecast2[1];
-            retorna[7]=forecast2[2];
-            retorna[8]=forecast2[3];
-            retorna[9]=forecast2[4];*/
-            return forecast1;
+           StringBuilder buffer = new StringBuilder();
+           buffer.append(forecast.substring(116, 240));
+           return buffer.toString();            
         }
         
         
@@ -287,22 +278,8 @@ public class WeatherStation
 			sunrise  = xpath.evaluate("/rss/channel/astronomy/@sunrise", xmlData);
 			sunset   = xpath.evaluate("/rss/channel/astronomy/@sunset", xmlData);
                         //se llenan las cadenas de prediccion climatica
-                        forecast1 = new String[5];
-                        forecast2 = new String[5];
-                        /**
-                         * TODO: esto no esta retornando nada CUIDADO CON ESTA PARTE
-                         
-                        forecast1[0]=xpath.evaluate("/rss/channel/forecast/@day", xmlData);
-                        forecast1[1]=xpath.evaluate("/rss/channel/forecast/@date", xmlData);
-                        forecast1[2]=xpath.evaluate("/rss/channel/forecast/@low", xmlData);
-                        forecast1[3]=xpath.evaluate("/rss/channel/forecast/@high", xmlData);
-                        forecast1[4]=xpath.evaluate("/rss/channel/forecast/@text", xmlData);
                         
-                        forecast2[0]=xpath.evaluate("/rss/channel/forecast/@day", xmlData);
-                        forecast2[1]=xpath.evaluate("/rss/channel/forecast/@date", xmlData);
-                        forecast2[2]=xpath.evaluate("/rss/channel/forecast/@low", xmlData);
-                        forecast2[3]=xpath.evaluate("/rss/channel/forecast/@high", xmlData);
-                        forecast2[4]=xpath.evaluate("/rss/channel/forecast/@text", xmlData);*/
+                        
                         airSpeed=xpath.evaluate("/rss/channel/wind/@speed", xmlData);
                         visibilidad=xpath.evaluate("/rss/channel/atmosphere/@visibility", xmlData);
                         presionAtmosferica=xpath.evaluate("/rss/channel/atmosphere/@pressure", xmlData);
@@ -314,6 +291,7 @@ public class WeatherStation
 			temperature = Integer.valueOf(xpath.evaluate("/rss/channel/item/condition/@temp", xmlData));
 			// Dado que la descripción no es XML, el contenido debe ser buscado a mano
 			String description = xpath.evaluate("/rss/channel/item/description", xmlData);
+                        forecast = description;//Capturo la descripcion para obtener la prediccion climatica
 			imgURL = find("<img src=\".*\"/>", description);	// buscar primer img-tag
 			imgURL = imgURL.substring(10, imgURL.length() - 3);	// obtener src
 			icon = new ImageIcon(new URL(imgURL));

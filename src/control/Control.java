@@ -18,9 +18,11 @@ public class Control implements ActionListener
     {
         model = new Model();
         vista = new View(model,this);
+        model.addObserver(vista);
         vista.setVisible(true);
     }
     
+    @Override
     public void actionPerformed(ActionEvent e)
     {
         String comando = e.getActionCommand();
@@ -30,12 +32,18 @@ public class Control implements ActionListener
         }
         if(comando.equals("cambiar ciudad"))
         {
+            model.setCity(vista.getCiudadItem());
+            model.update();
+        }
+        if(comando.equals("inicio"))
+        {
+            //model.setCity("pereira");
+            model.setCity("Barranquilla");
             model.update();
         }
     }
     
-    public static void main( String args[] ) {
-        
+    public static void main( String args[] ) {        
         Control m = new Control();
         }
 }
